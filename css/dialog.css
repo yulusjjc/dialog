@@ -1,0 +1,20 @@
+@charset "utf-8";
+
+*{padding:0;margin:0;}
+.dialog_overlay{position: fixed;width:100%;height:100%;top:0;left:0;background-color: #000;opacity: 0.3;filter:Alpha(opacity=30);z-index:9999999;}
+.dialog_box{position: fixed;background: rgba(0,0,0,0.25);background:url(../images/bg.png) repeat left top\9;padding:4px;font-family:"Microsoft YaHei";z-index:9999999;}
+.dialog_wrap{position: relative;border-collapse: collapse;width:100%;height:100%;background-color: #fff;z-index: 9999999;}
+.dialog_title{position: absolute;top: 1px;left: 0;height:34px;line-height:34px;text-indent:20px;width:100%;border-bottom:1px solid #ddd;font-size:14px;color: #3c3c3c;}
+.dialog_close{display: block;position: absolute;padding: 0;top: 1px;right: 1px;width: 34px;height: 34px;line-height: 34px;font-size: 20px;color: #999;text-align: center;font-family: STHeiti;text-decoration: none;background-color: #e7e7e7;border-left:1px solid #ddd;}
+.dialog_close:hover{background-color:#999;color:#fff;text-decoration: none;}
+.dialog_content{text-align: center;line-height:30px;font-size: 14px;color: #3c3c3c;padding:70px 0 80px;border:1px solid #ddd;box-sizing:border-box;}
+.dialog_btn{width:100%;height:50px;position: absolute;bottom:0;left:0;text-align: center;}
+.dialog_btn button{padding:0 16px;height:30px;margin:0 8px;font-size: 12px;border-radius: 4px;-moz-border-radius:4px;}
+.dialog_btn button.dialog_ok{background-color:#ff6322;border:1px solid #ff6322;color:#fff;}
+.dialog_btn button.dialog_cancel{background-color:#fff;border:1px solid #ddd;color:#3c3c3c;}
+.dialog_btn button:hover{background-color: #ff8350;border:1px solid #ff8350;color:#fff;}
+.dialog_btn button:active{background-color: #ff4200;border:1px solid #ff4200;color:#fff;}
+
+.dialog_content .success-img{display:inline-block;padding-left:50px;background: url(../images/success.png) no-repeat left center;}
+.dialog_content .error-img{display:inline-block;padding-left:50px;background: url(../images/error.png) no-repeat left center;}
+.dialog_content .warning-img{display:inline-block;padding-left:50px;background: url(../images/warning.png) no-repeat left center;}

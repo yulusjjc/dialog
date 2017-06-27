@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>Dialog v2.0 演示与说明</title>
+<style>
+	* { margin:0;padding:0; }
+	body { background:#fff; font:12px/150% "Lucida Sans Unicode", "Lucida Grande", sans-serif; }
+	a{ color:#09c; }
+	a:hover{ color:#000; text-decoration:none; }
+	.f_l{ float:left; }
+	.f_r{ float:right; }
+	.header{ background:#f5f5f5; height:60px; border-bottom:1px solid #e5e5e5; width:100%; }
+	.header_box{ width:960px; margin:0 auto; overflow:hidden; line-height:60px; }
+	.header_box .logo{ font-size:24px; font-weight:400; color:#333; height:30px; line-height:30px; float:left; border-right:2px solid #c9c9c9; margin-top:15px; padding-right:20px; }
+	.header_box .sub_tit{ font-size:22px; font-weight:400; font-family:'宋体'; color:#666; height:30px; line-height:30px; overflow:hidden; margin-top:15px; float:left; padding-left:20px; }
+	.header_box .f_r{ font-size:12px; margin:5px -10px 0 0; }
+	.header_box .f_r a{ margin-right:10px; }
+	.wrapper{ width:960px; margin:2% auto 0; padding-bottom:100px; }
+	.wrapper h1{ font-size:16px; font-weight:700; color:#333; height:40px; line-height:40px; font-family:"Microsoft yahei", Arial; margin-bottom:5px;border-bottom:2px solid #4D90F0; }
+	.wrapper h3{ font-size:14px; font-weight:700; color:#333; height:30px; line-height:30px; font-family:"Microsoft yahei", Arial; margin-bottom:5px; }
+	.intro_box{ width:960px; overflow:hidden;padding:20px;font-size:13px; color:#515151; margin-bottom:10px; line-height:24px;}
+	.code_box{ width:960px; overflow:hidden; border-bottom:1px solid #e1e1e1; padding-bottom:20px; margin-bottom:40px; }
+	.code_box pre{ width:340px; background:#f5f5f5; padding:10px 20px; font-family:"Consolas","Courier New",Courier,mono; font-size:13px; line-height:18px; border:1px solid #eee; float:left; color:#333;overflow-x: auto; }
+	.code_box .run{ border:1px solid; border-radius:2px; cursor:pointer; font-family:"Microsoft yahei", Arial; font-size:12px; width:50px; height:22px; line-height:22px; display:inline-block; text-align:center; border-color:#c3c3c3; background:#ececec; color:#333; background:-webkit-gradient(linear,center bottom,center top,from(#ececec),to(#f4f4f4)); background:-moz-linear-gradient(90deg,#ececec,#f4f4f4); text-decoration:none; margin-right:20px;}
+	.con_right{ width:558px; float:left; padding-left:20px; }
+	.con_right p{ font-size:13px; color:#515151; margin-bottom:10px; line-height:24px; }
+
+	.param_tb{ width:960px; border-collapse:collapse; border-bottom:1px solid #e1e1e1; border-left:1px solid #e1e1e1; font-size:13px; color:#333; }
+	.param_tb tr td{ line-height:20px; padding:5px 0; text-align:center; border-right:1px solid #e1e1e1; border-bottom:1px solid #e1e1e1; }
+	.param_tb tr .t_l{ text-align:left; padding:5px 10px; }
+	.param_tb th{ background:#f5f5f5; line-height:40px; border-right:1px solid #e1e1e1; font-family:"Microsoft yahei", Arial; font-size:14px; font-weight:700; border-top:1px solid #e1e1e1;border-bottom: 1px solid #e1e1e1; }
+	.param_tb p{ line-height:20px; padding:5px 0; }
+</style>
+<link rel="stylesheet" href="css/dialog.css" />
+</head>
+<body>
+<div class="header">
+	<div class="header_box">
+		<h1 class="logo">Dialog v2.0</h1>
+		<h2 class="sub_tit">演示与说明</h2>
+		<span class="f_r">by : <a>Yulu</a></span>
+	</div>
+</div>
+
+<div class="wrapper">
+
+	<h1>组件名称 ： 弹窗组件</h1>
+	<br>
+	<br>
+	<h1>最新修改</h1>
+	<div class="intro_box">
+		<ul style="color:#f00;">
+			<li>2016-05-20  修复取消关闭按钮返回false仍然关闭弹窗的bug 示例：<button onclick="$('#demoBtn61').click()">查看示例</button></li>
+			<li>2016-03-23  修复多层弹框时，关闭其中一个弹框，遮罩消失的问题 示例：<button onclick="$('#demoBtn41').click()">查看示例</button></li>
+			<li>2016-03-03  新增autoCloseFn参数，支持弹出框自动关闭之后执行的回调 </li>
+	    </ul>
+	</div>
+    <h1>功能介绍</h1>
+    <div class="intro_box">
+		<ul>
+			<li>取代浏览器自带的Alert、Confirm控件 </li>
+	        <li>自定义界面样式 </li>
+	        <li>使用方式与内置控件基本保持一致 </li>
+	    </ul>
+	</div>
+	<h1>demo展示</h1>
+
+<h3>info弹窗</h3>
+<div class="code_box">
+<pre>
+var dialog = new Dialog({
+    type: "info",
+    infoType: "success", //error/warning
+    content: "删除成功！",
+    autoClose:2000,
+    overlayClose: true
+});
+</pre>
+<div class="con_right">
+	<p>info弹窗一般分为成功，失败，警告弹窗<br />
+		<b>infoType:</b>指定提示类型success为成功<br />
+		<b>conent:</b>包含弹出层的内容<br />
+		<b>autoClose:</b>定时关闭,在info中不传默认为2000<br />
+		<b>overlayClose:</b>开启点击遮罩关闭弹窗<br />
+	</p>
+	<a href="javascript:void(0)" class="run" id="demoBtn1">成功弹窗</a>
+	<a href="javascript:void(0)" class="run" id="demoBtn2">失败弹窗</a>
+	<a href="javascript:void(0)" class="run" id="demoBtn3">警告弹窗</a>
+</div>
+</div>
+
+<h3>confirm弹窗</h3>
+<div class="code_box">
+<pre>
+var btnOk = {
+	isShow:true,
+	text:"点击我不消失",
+	callback:function(){
+		return false;
+	}
+}
+var btnCancel = {
+	isShow:true,
+	text:"取消",
+	callback:function(){
+		return true;
+	}
+}
+var dialog = new Dialog({
+    type: "confirm",
+    content: "你确定要删除选中列？",
+    btnOk:btnOk,
+    btnCancel:btnCancel
+});
+</pre>
+<div class="con_right">
+	<p>confirm弹窗一般不用指定infoType,默认为warning<br />
+		confirm弹窗默认配置一个标题，和两个按钮，如果没有设置title值，那么默认显示“提示”，如果不需要显示标题，那么title传空<br />
+		content必须要有内容，如果两个要配置两个按钮不显示，那么在btnOk和btnCancel的isShow传false即可<br />
+		<b>btnOk : </b>确定按钮的对象，回调函数callback返回false将不关闭弹出层。<br />
+		<b>btnCancel : </b>取消按钮的对象，回调函数callback返回false将不关闭弹出层<br />
+		如果没有给按钮传回调函数,那么默认返回true。
+	</p>
+	<a href="javascript:void(0)" class="run" id="demoBtn4">运行</a>
+	<a href="javascript:void(0)" class="run" id="demoBtn41">两个弹窗</a>
+</div>
+</div>
+<div class="code_box">
+<pre>
+var btnOk = {
+	callback:function(){
+		return false;
+	}
+}
+var btnCancel = {
+	isShow:true,
+	text:"取消",
+	callback:function(){
+		return true;
+	}
+}
+var dialog = new Dialog({
+    type: "confirm",
+    width:480,
+    content: "你确定要删除选中列你确定要删除选中列？",
+    btnOk:btnOk,
+    btnCancel:btnCancel
+});
+</pre>
+<div class="con_right">
+	<p>当内容较长时，建议传width值480</p>
+	<a href="javascript:void(0)" class="run" id="demoBtn5">运行</a>
+</div>
+</div>
+
+<h3>window弹窗</h3>
+<div class="code_box">
+<pre>
+var dom = '&lt;div&gt;一个文档，dom文件，或者iframe。&lt;/div&gt;';
+var dialog = new Dialog({
+    type: "window",
+    content: dom,
+    width:1000,
+    height:500,
+    btnOk:{
+    	isShow:true,
+    	text:"自定义名称",
+    	callback:function(){
+    		return true;
+    	}
+    }
+});
+</pre>
+<div class="con_right">
+	<p>window弹窗一般不用指定infoType<br />
+		一般引入一个文档，一段代码，一个页面时使用<br />
+		一般要自行设置高宽
+		<b>width : </b>自定义弹出框的宽度，只需要传数字，不要带单位
+		<b>height : </b>自定义弹出框的高度，只需要传数字，不要带单位
+	</p>
+	<a href="javascript:void(0)" class="run" id="demoBtn6">运行</a>
+</div>
+</div>
+
+<h3>window弹窗点取消和关闭按钮不关闭</h3>
+<div class="code_box">
+<pre>
+var dom = '&lt;div&gt;一个文档，dom文件，或者iframe。&lt;/div&gt;';
+var dialog = new Dialog({
+    type: "window",
+    content: dom,
+    width:1000,
+    height:500,
+    btnOk:{
+    	isShow:true,
+    	text:"自定义名称",
+    	callback:function(){
+    		return true;
+    	}
+    },
+    btnCancel:{
+    	isShow:true,
+    	text:"不关闭",
+    	callback:function(){
+    		return false;
+    	}
+    },
+    btnClose:{
+    	isShow:true,
+    	text:"",
+    	callback:function(){
+    		return false;
+    	}
+    }
+});
+</pre>
+<div class="con_right">
+	<p>window弹窗一般不用指定infoType<br />
+		一般引入一个文档，一段代码，一个页面时使用<br />
+		一般要自行设置高宽
+		<b>width : </b>自定义弹出框的宽度，只需要传数字，不要带单位
+		<b>height : </b>自定义弹出框的高度，只需要传数字，不要带单位
+	</p>
+	<a href="javascript:void(0)" class="run" id="demoBtn61">运行</a>
+</div>
+</div>
+
+<!-- <p>如果header没有内容将不显示，content必须要有内容，footer没有2个按钮也不显示。<br />
+		<b>yesFn：</b>确定按钮的回调函数，回调函数返回false将不关闭弹出层。<br />
+		<b>noFn：</b>取消按钮的回调函数，回调函数返回false将不关闭弹出层，取消按钮的回调函数也同样会绑定在关闭按钮上，如果参数不是函数而是true，那么取消按钮就只有关闭弹出层的功能。<br />
+		如果没有给按钮传回调函数，按钮将不显示。
+	</p>
+</div> -->
+	<h1>公共方法</h1>
+    
+    <div class="intro_box">
+    	<ul>
+	    	<li><b>show()</b></br>
+	        	功能：显示弹出框</br>
+	        	入参：无</br>
+	        	返回：无</br>
+	        	使用示例：</br>
+	    	</li>
+		    <li><b>hide()</b></br>
+		        功能：隐藏弹出框</br>
+		        入参：无</br>
+		        返回：无</br>
+		        使用示例：</br>
+		    </li>
+		    <li><b>close()</b></br>
+		        功能：关闭弹出框（移除dom节点）</br>
+		        入参：无</br>
+		        返回：无</br>
+		        使用示例：</br>
+		    </li>
+	    </ul>
+	</div>
+
+	<h1>参数列表</h1>
+	<table class="param_tb">
+		<colgroup>
+			<col style="width:120px" />
+			<col style="width:140px" />
+			<col style="width:90px" />
+			<col style="width:610px" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>参数</th>
+				<th>参数类型</th>
+				<th>默认参数</th>
+				<th>参数说明</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>id</td>
+				<td>String</td>
+				<td>随机数</td>
+				<td class="t_l">
+					<p><b>弹出窗口唯一标示符</b></p>
+					<p>用于区分多个弹出窗口</p>
+				</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>String</td>
+				<td>null</td>
+				<td class="t_l">
+					<p><b>弹出窗口模板</b></p>
+					<p>模板的参数：</p>
+					<p>info: 消息提示（默认没有任何按钮，没有标题，没有关闭按钮，建议传autoClose设定定时关闭，传overlayClose添加点击遮罩层关闭弹框功能）</p>
+					<p>confirm: 确认弹框（默认有提示的标题，带有确定和取消按钮）<br />
+					<p>window: window内容弹框 （默认带有确定按钮）<br />
+				</td>
+			</tr>
+			<tr>
+				<td>[infoType]</td>
+				<td>String</td>
+				<td>null</td>
+				<td class="t_l">
+					<p><b>弹出窗口提示类型</b></p>
+					<p>提示类型的参数：</p>
+					<p>success: 成功</p>
+					<p>error: 失败或者错误<br />
+					<p>warning: 警告<br />
+				</td>
+			</tr>
+			<tr>
+				<td>[title]</td>
+				<td>String</td>
+				<td>null</td>
+				<td class="t_l">
+					<p><b>弹出窗口标题</b></p>
+					<p>可以定义标题,默认标题为“提示”</p>
+				</td>
+			</tr>
+			<tr>
+				<td>content</td>
+				<td>String</td>
+				<td></td>
+				<td class="t_l">
+					<p><b>弹出窗口内容</b></p>
+					<p>参数可以是字符串，也可以是HTML代码。</p>
+				</td>
+			</tr>
+			<tr>
+				<td>[width]</td>
+				<td>Number</td>
+				<td>320</td>
+				<td class="t_l">
+					<p><b>弹出窗口宽度</b></p>
+				</td>
+			</tr>
+			<tr>
+				<td>[height]</td>
+				<td>Number</td>
+				<td>auto</td>
+				<td class="t_l">
+					<p><b>弹出窗口高度</b></p>
+				</td>
+			</tr>
+			<tr>
+				<td>[offsetX]</td>
+				<td>Number</td>
+				<td>自动计算</td>
+				<td class="t_l">
+					<p><b>弹出窗口左偏移量</b></p>
+				</td>
+			</tr>
+			<tr>
+				<td>[offsetY]</td>
+				<td>Number</td>
+				<td>自动计算</td>
+				<td class="t_l">
+					<p><b>弹出窗口上偏移量</b></p>
+				</td>
+			</tr>
+			<tr>
+				<td>[isOverlay]</td>
+				<td>Boolean</td>
+				<td>true</td>
+				<td class="t_l">
+					<p><b>是否显示遮罩</b></p>
+					<p>默认为显示</p>
+				</td>
+			</tr>
+			<tr>
+				<td>[overlayClose]</td>
+				<td>Boolean</td>
+				<td>false</td>
+				<td class="t_l">
+					<p><b>是否开启点击遮罩层关闭弹框的功能</b></p>
+					<p>默认为不开启</p>
+				</td>
+			</tr>
+			<tr>
+				<td>[autoClose]</td>
+				<td>Boolean</td>
+				<td>false</td>
+				<td class="t_l">
+					<p><b>弹出窗口自动关闭时间</b></p>
+					<p>以毫秒为单位，只能传数字，一般在type传值为“info”时使用</p>
+				</td>
+			</tr>
+			<tr>
+				<td>[btnOk]</td>
+				<td>Object</td>
+				<td>null</td>
+				<td class="t_l">
+					<p><b>确定按钮操作</b></p>
+					<p>object{</p>
+					<p> isShow:true,		//是否显示确认按钮</p>
+					<p> text:"确定",		//确定按钮的文字</p>
+					<p> callback:function(){}    //确定之后回调函数</p>
+					<p>}</p>
+					<p></p>
+				</td>
+			</tr>
+			<tr>
+				<td>[btnCancel]</td>
+				<td>Object</td>
+				<td>null</td>
+				<td class="t_l">
+					<p><b>取消按钮操作</b></p>
+					<p>object{</p>
+					<p> isShow:true,		//是否显示取消按钮</p>
+					<p> text:"确定",		//取消按钮的文字</p>
+					<p> callback:function(){}    //取消之后回调函数</p>
+					<p>}</p>
+				</td>
+			</tr>
+			<tr>
+				<td>[btnClose]</td>
+				<td>Object</td>
+				<td>null</td>
+				<td class="t_l">
+					<p><b>关闭按钮操作</b></p>
+					<p>object{</p>
+					<p> isShow:true,		//是否显示关闭按钮</p>
+					<p> callback:function(){}    //关闭之后回调函数</p>
+					<p>}</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="color:#f00;">[autoCloseFn]</td>
+				<td>function</td>
+				<td>null</td>
+				<td class="t_l">
+					<p><b>定时关闭弹窗之后回调函数</b><span style="color:#f00;"> (新增2016-03-03) </span></p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/dialog.js"></script>
+<script type="text/javascript">
+	$("#demoBtn1").click(function () {
+        var a = new Dialog({
+            type: "info",
+            infoType: "success",
+            content: "删除成功！",
+            autoClose:2000,
+            overlayClose: true
+        });
+    });
+    $("#demoBtn2").click(function () {
+        var a = new Dialog({
+            type: "info",
+            infoType: "error",
+            content: "删除失败！",
+            autoClose:2000,
+            overlayClose: true
+        });
+    });
+    $("#demoBtn3").click(function () {
+        var a = new Dialog({
+            type: "info",
+		    infoType: "warning",
+		    content: "当前状况下不允许执行操作！",
+		    autoClose:2000,
+		    overlayClose: true
+        });
+    });
+    $("#demoBtn4").click(function () {
+	    var btnOk = {
+			isShow:true,
+			text:"点击我不消失",
+			callback:function(){
+				return false;
+			}
+		}
+		var btnCancel = {
+			isShow:true,
+			text:"取消",
+			callback:function(){
+				return true;
+			}
+		}
+		var dialog = new Dialog({
+		    type: "confirm",
+		    content: "你确定要删除选中列？",
+		    btnOk:btnOk,
+		    btnCancel:btnCancel
+		});
+	});
+	$("#demoBtn41").click(function () {
+	    var btnOk = {
+			isShow:true,
+			text:"确定",
+			callback:function(){
+				fn("success","删除成功！");
+				return true;
+			}
+		}
+		var btnCancel = {
+			isShow:true,
+			text:"取消",
+			callback:function(){
+				fn("error","删除失败！");
+				return true;
+			}
+		}
+		var dialog = new Dialog({
+		    type: "confirm",
+		    content: "你确定要删除选中列？",
+		    btnOk:btnOk,
+		    btnCancel:btnCancel
+		});
+
+		var fn = function(type,info){
+			var a = new Dialog({
+	            type: "info",
+	            infoType: type,
+	            content: info,
+	            autoClose:2000,
+	            overlayClose: true
+	        });
+		}
+	});
+	$("#demoBtn5").click(function () {
+	    var btnOk = {
+			callback:function(){
+				return false;
+			}
+		}
+		var btnCancel = {
+			isShow:true,
+			text:"取消",
+			callback:function(){
+				return true;
+			}
+		}
+		var dialog = new Dialog({
+		    type: "confirm",
+		    width:480,
+		    content: "你确定要删除选中列你确定要删除选中列？",
+		    btnOk:btnOk,
+		    btnCancel:btnCancel
+		});
+	});
+	$("#demoBtn6").click(function () {
+		var dom = '<div>一个文档，dom文件，或者iframe。</div>';
+		var dialog = new Dialog({
+		    type: "window",
+		    content: dom,
+		    width:1000,
+		    height:500,
+		    btnOk:{isShow:true,text:"自定义名称",callback:function(){return true}},
+		});
+	});
+	$("#demoBtn61").click(function(){
+		var dom = '&lt;div&gt;一个文档，dom文件，或者iframe。&lt;/div&gt;';
+		var dialog = new Dialog({
+		    type: "window",
+		    content: dom,
+		    width:1000,
+		    height:500,
+		    btnOk:{
+		    	isShow:true,
+		    	text:"自定义名称",
+		    	callback:function(){
+		    		return true;
+		    	}
+		    },
+		    btnCancel:{
+		    	isShow:true,
+		    	text:"不关闭",
+		    	callback:function(){
+		    		return false;
+		    	}
+		    },
+		    btnClose:{
+		    	isShow:true,
+		    	text:"",
+		    	callback:function(){
+		    		return false;
+		    	}
+		    }
+		});
+	});
+</script>
+</body>
+</html>
